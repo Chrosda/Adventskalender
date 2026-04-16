@@ -29,7 +29,7 @@
             color: #fff;
             background:
                 linear-gradient(rgba(86, 0, 10, 0.2), rgba(86, 0, 10, 0.2)),
-                url('background.png') center center / cover no-repeat fixed;
+                url('julkalender_unpacked/background.png') center center / cover no-repeat fixed;
         }
 
         .page {
@@ -431,9 +431,6 @@
             { day: 24, text: "God jul!" }
         ];
 
-        const campaignDays = new Set([3, 6, 9, 12, 15, 18, 21, 24]);
-        const productDays = new Set([4, 8, 13, 17, 22]);
-
         const calendar = document.getElementById("calendar");
 
         contents.forEach(({ day, text }) => {
@@ -444,13 +441,7 @@
             door.setAttribute("role", "button");
             door.setAttribute("aria-label", `Oppna lucka ${day}`);
 
-            let linkMarkup = "";
-
-            if (campaignDays.has(day)) {
-                linkMarkup = `<a class="door-link" href="undersida.html?day=${day}">Oppna sida</a>`;
-            } else if (productDays.has(day)) {
-                linkMarkup = `<a class="door-link" href="produktsida.html?day=${day}">Se presentkort</a>`;
-            }
+            const linkMarkup = `<a class="door-link" href="undersida.html?day=${day}">Oppna sida</a>`;
 
             door.innerHTML = `
                 <span class="door-front">${day}</span>

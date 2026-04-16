@@ -27,7 +27,7 @@
             color: white;
             background:
                 linear-gradient(rgba(80, 0, 8, 0.28), rgba(80, 0, 8, 0.28)),
-                url("background.png") center center / cover no-repeat fixed;
+                url("julkalender_unpacked/background.png") center center / cover no-repeat fixed;
         }
 
         .page {
@@ -185,6 +185,33 @@
     </main>
 
     <script>
+        const labels = {
+            1: "Pepparkakor",
+            2: "Glogg",
+            3: "Julmusik",
+            4: "Adventsljus",
+            5: "Julklappsrim",
+            6: "Luciabulle",
+            7: "Julgranskulor",
+            8: "Snoflingor",
+            9: "Tomteluva",
+            10: "Julskinka",
+            11: "Stjarna",
+            12: "Paketinslagning",
+            13: "Lucia",
+            14: "Julmarknad",
+            15: "Korsang",
+            16: "Vantar",
+            17: "Chokladkalender",
+            18: "Julfilm",
+            19: "Lussekatt",
+            20: "Juleljus",
+            21: "Midvinterblot",
+            22: "Julbord",
+            23: "Dan fore dopparedan",
+            24: "God jul"
+        };
+
         const offers = {
             3: {
                 title: "Lucka 3",
@@ -254,13 +281,14 @@
 
         const params = new URLSearchParams(window.location.search);
         const day = Number(params.get("day"));
+        const label = labels[day] || "Dagens innehall";
         const content = offers[day] || {
-            title: "Adventserbjudande",
-            lead: "Det finns ingen sarskild undersida kopplad till den har luckan an.",
-            body: "Ga tillbaka till kalendern och oppna en av de lankade luckorna for att se kampanjlayouten.",
-            offer: "Valj en lucka med lanksymbol i kalendern.",
-            ctaLabel: "Tillbaka till kalendern",
-            ctaHref: "index.html"
+            title: `Lucka ${Number.isFinite(day) && day ? day : ""}`.trim(),
+            lead: `${label} ar dagens tema bakom luckan.`,
+            body: "Den har kampanjsidan ar nu aktiverad for alla luckor i kalendern, med samma tydliga upplagg och plats for erbjudande, CTA och dagsunik copy.",
+            offer: `${label} presenteras som dagens kampanj eller aktivitet.`,
+            ctaLabel: "Ta del av erbjudandet",
+            ctaHref: "#"
         };
 
         document.title = `${content.title} | Adventserbjudande`;
