@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobilt presentkort</title>
+    <style>
+        :root {
+            --bg: #f7f3ed;
+            --ink: #111111;
+            --muted: #5f5f5f;
+            --surface: #ffffff;
+            --accent: #d7ff5f;
+            --accent-dark: #93ba23;
+            --line: #e5ded5;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+            --body-font: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
+            --display-font: "Circular Pro", "Aptos", "Segoe UI", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: var(--body-font);
+            color: var(--ink);
+            background: var(--bg);
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+        }
+
+        .topbar-inner {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 18px 0;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: min(220px, 40vw);
+            height: auto;
+            object-fit: contain;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .nav a {
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .page {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 36px 0 56px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.02fr 0.98fr;
+            gap: 28px;
+            align-items: stretch;
+            margin-bottom: 28px;
+        }
+
+        .hero-card,
+        .form-card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-card {
+            overflow: hidden;
+        }
+
+        .hero-media {
+            display: grid;
+            place-items: center;
+            min-height: 100%;
+            padding: 34px;
+            background:
+                radial-gradient(circle at top right, rgba(215, 255, 95, 0.36), transparent 30%),
+                linear-gradient(180deg, #ffffff 0%, #f1ede6 100%);
+        }
+
+        .hero-media img {
+            width: min(420px, 100%);
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.12));
+        }
+
+        .hero-copy {
+            padding: 34px;
+            display: grid;
+            align-content: center;
+            gap: 16px;
+        }
+
+        .eyebrow {
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        h1 {
+            font-family: var(--display-font);
+            font-size: clamp(2.4rem, 5vw, 4.6rem);
+            line-height: 0.92;
+            letter-spacing: -0.05em;
+        }
+
+        .lead {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            line-height: 1.55;
+            color: #2a2a2a;
+        }
+
+        .price {
+            display: inline-flex;
+            width: fit-content;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: var(--accent);
+            font-family: var(--display-font);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .form-card {
+            padding: 28px;
+            display: grid;
+            gap: 18px;
+        }
+
+        .section-title {
+            font-family: var(--display-font);
+            font-size: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .field-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        label {
+            display: grid;
+            gap: 8px;
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #d9d1c7;
+            border-radius: 18px;
+            font: inherit;
+            background: #fff;
+        }
+
+        textarea {
+            min-height: 108px;
+            resize: vertical;
+        }
+
+        .consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: #292929;
+        }
+
+        .consent input {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            padding: 0;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .button,
+        .secondary-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .button {
+            border: 0;
+            background: var(--ink);
+            color: white;
+        }
+
+        .secondary-button {
+            border: 1px solid #d9d1c7;
+            background: #fff;
+            color: var(--ink);
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .info-card {
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.66);
+        }
+
+        .info-card h2 {
+            margin-bottom: 8px;
+            font-size: 0.92rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .info-card p {
+            color: #3d3d3d;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 920px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="logo" href="index.html">
+                <img src="Clearon_Logo_Lime.png" alt="ClearOn">
+            </a>
+            <nav class="nav" aria-label="Huvudnavigation">
+                <a href="index.html">Kalendern</a>
+                <a href="produktsida.html">Presentkort</a>
+                <a href="undersida.html">Kampanjsida</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="hero">
+            <article class="hero-card">
+                <div class="hero-media">
+                    <img id="product-image" src="https://mobilapresentkort.se/sites/default/files/2026-01/MICC-GB2507-GB-Swish-ClearOn_Produktbild-3-500x500.png" alt="Presentkort">
+                </div>
+            </article>
+
+            <article class="hero-card">
+                <div class="hero-copy">
+                    <p class="eyebrow" id="eyebrow">Digitala presentkort</p>
+                    <h1 id="title">Lucka</h1>
+                    <p class="lead" id="lead">En produktsida i samma riktning som referensen, men anpassad till adventskalendern.</p>
+                    <div class="price" id="price">35 kr</div>
+                </div>
+            </article>
+        </section>
+
+        <section class="form-card">
+            <h2 class="section-title">Skicka presentkort</h2>
+            <div class="field-grid">
+                <label for="recipient-number">Mottagarens mobilnummer
+                    <input id="recipient-number" type="tel" placeholder="0701234567">
+                </label>
+                <label for="message">Personlig halsning
+                    <textarea id="message" placeholder="Skriv en kort halsning till mottagaren."></textarea>
+                </label>
+                <label for="sender-name">Ditt namn
+                    <input id="sender-name" type="text" placeholder="Ditt namn">
+                </label>
+                <label for="sender-number">Ditt mobilnummer
+                    <input id="sender-number" type="tel" placeholder="0701234567">
+                </label>
+                <label for="sender-email">Din e-post
+                    <input id="sender-email" type="email" placeholder="namn@example.se">
+                </label>
+            </div>
+
+            <label class="consent" for="consent">
+                <input id="consent" type="checkbox">
+                <span>Jag godkanner villkoren for tjansten och att lagda personuppgifter behandlas av ClearOn.</span>
+            </label>
+
+            <div class="actions">
+                <button class="button" type="button">Kop med swish</button>
+                <button class="secondary-button" type="button">Kop med kort</button>
+                <a class="secondary-button" href="index.html">Tillbaka till kalendern</a>
+            </div>
+        </section>
+
+        <section class="info-row">
+            <article class="info-card">
+                <h2>Om luckan</h2>
+                <p id="info-copy">Bakom den har luckan ligger en produkttyp som lutar mer at presentkortshallet an den kampanjdrivna undersidan.</p>
+            </article>
+            <article class="info-card">
+                <h2>Leverans</h2>
+                <p>Presentkortet skickas digitalt till mottagaren och kan enkelt ersattas med riktig checkout eller formularkoppling i nasta steg.</p>
+            </article>
+            <article class="info-card">
+                <h2>Format</h2>
+                <p>Layouten ar byggd for att efterlikna referensens produktkort, produktbild, prisfokus och formulardriven CTA.</p>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        const products = {
+            4: {
+                title: "Lucka 4",
+                lead: "Adventsljus som ett mobilt presentkort med tydligt prisfokus.",
+                price: "29 kr",
+                info: "Adventsljus presenteras har som en produktbaserad lucka med fokus pa konvertering och presentkortskansla."
+            },
+            8: {
+                title: "Lucka 8",
+                lead: "Snoflingor i ett mer kommersiellt luckformat inspirerat av mobilapresentkort.se.",
+                price: "35 kr",
+                info: "Snoflingor blir en lucka med produktkort, CTA och formularyta i stallet for ren kampanjsida."
+            },
+            13: {
+                title: "Lucka 13",
+                lead: "Lucia som en separat produktsida bakom luckan.",
+                price: "49 kr",
+                info: "Lucia-luckan visar hur ett erbjudande kan paketeras som en egen produkt- eller checkoutupplevelse."
+            },
+            17: {
+                title: "Lucka 17",
+                lead: "Chokladkalender med produktsida och presentkortskansla.",
+                price: "59 kr",
+                info: "Chokladkalendern ar nu en egen typ av lucka med mer saljorienterad struktur."
+            },
+            22: {
+                title: "Lucka 22",
+                lead: "Julbord som en tydlig produktrouting med egen CTA.",
+                price: "79 kr",
+                info: "Julbordsluckan visar den andra undersidestypen med produktbild, pris, formulardel och handling."
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const day = Number(params.get("day"));
+        const content = products[day] || {
+            title: "Presentkortslucka",
+            lead: "Den har sidan anvands for de luckor som ska ha en mer produktorienterad landningssida.",
+            price: "35 kr",
+            info: "Ga tillbaka till kalendern och oppna en lucka som har knappen Se presentkort."
+        };
+
+        document.title = `${content.title} | Mobilt presentkort`;
+        document.getElementById("eyebrow").textContent = `Lucka ${Number.isFinite(day) && day ? day : "-"}`;
+        document.getElementById("title").textContent = content.title;
+        document.getElementById("lead").textContent = content.lead;
+        document.getElementById("price").textContent = content.price;
+        document.getElementById("info-copy").textContent = content.info;
+    </script>
+</body>
+</html>
