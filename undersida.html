@@ -27,7 +27,7 @@
             color: white;
             background:
                 linear-gradient(rgba(80, 0, 8, 0.28), rgba(80, 0, 8, 0.28)),
-                url("julkalender_unpacked/background.png") center center / cover no-repeat fixed;
+                url("background.png") center center / cover no-repeat fixed;
         }
 
         .page {
@@ -51,13 +51,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 74px;
+            margin-bottom: 2px;
         }
 
         .brand img {
-            width: min(220px, 68%);
+            width: min(260px, 76%);
             height: auto;
             object-fit: contain;
-            filter: brightness(0) invert(1);
+            filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.18));
         }
 
         .eyebrow {
@@ -173,6 +175,7 @@
             <h1 id="title">Lucka</h1>
             <p class="lead" id="lead">Ett erbjudande väntar bakom dagens lucka.</p>
             <p class="body-copy" id="body-copy">Vi har byggt den här sidan i samma tydliga kampanjupplägg som referensen du skickade, men anpassat till adventskalendern.</p>
+            <p class="body-copy">Erbjudandet g&auml;ller de f&ouml;rsta 1000 som skriver upp sig.</p>
             <section class="offer-card">
                 <p>Bakom luckan</p>
                 <p id="offer-copy">Dagens innehåll</p>
@@ -218,64 +221,64 @@
                 lead: "Julmusik som kickstartar decemberstamningen.",
                 body: "En kampanjsida for dagens lucka med samma kompakta panel, tydliga CTA och centrerade innehall som i referenssidan.",
                 offer: "Oppna spellistan och ta del av dagens juliga innehall.",
-                ctaLabel: "Lyssna nu",
-                ctaHref: "#"
+                ctaLabel: "Ta del av erbjudandet",
+                ctaHref: "erbjudande.html"
             },
             6: {
                 title: "Lucka 6",
                 lead: "Luciabulle och ett varmt decembererbjudande.",
                 body: "Har kan vi lagga valfri kampanjtext, kod, formulartjanst eller erbjudande beroende pa aktivitet for dagen.",
                 offer: "Ta del av dagens erbjudande kopplat till luciabullen.",
-                ctaLabel: "Visa erbjudande",
-                ctaHref: "#"
+                ctaLabel: "Ta del av erbjudandet",
+                ctaHref: "erbjudande.html"
             },
             9: {
                 title: "Lucka 9",
                 lead: "Tomteluva med en egen kampanjsida bakom luckan.",
                 body: "Sidan ar byggd sa att vi enkelt kan byta rubrik, text och lankanrop per datum utan att gora om layouten.",
                 offer: "Tomteluva med tillhorande erbjudande eller aktivitet.",
-                ctaLabel: "Las mer",
-                ctaHref: "#"
+                ctaLabel: "Ta del av erbjudandet",
+                ctaHref: "erbjudande.html"
             },
             12: {
                 title: "Lucka 12",
                 lead: "Paketinslagning med tydlig call to action.",
                 body: "Formatet funkar bra for kuponger, registreringar, smakprov, tavlingar eller annan dagsunik kommunikation.",
                 offer: "Paketinslagning och dagens utvalda innehall.",
-                ctaLabel: "Fortsatt",
-                ctaHref: "#"
+                ctaLabel: "Ta del av erbjudandet",
+                ctaHref: "erbjudande.html"
             },
             15: {
                 title: "Lucka 15",
                 lead: "Korsang med kampanjpanel i referensens stil.",
                 body: "Vi har hallit strukturen ren och fokuserad: logotyp, rubrik, beskrivning, erbjudandeblock och handlingsknapp.",
                 offer: "Korsang med lank vidare till aktivitet eller erbjudande.",
-                ctaLabel: "Oppna aktivitet",
-                ctaHref: "#"
+                ctaLabel: "Ta del av erbjudandet",
+                ctaHref: "erbjudande.html"
             },
             18: {
                 title: "Lucka 18",
                 lead: "Julfilm med en separat destinationssida bakom luckan.",
                 body: "Det gar enkelt att ersatta knappen med ett formulaar eller en extern lank om du vill efter nasta iteration.",
                 offer: "Julfilm och en tydlig CTA for dagens innehall.",
-                ctaLabel: "Se mer",
-                ctaHref: "#"
+                ctaLabel: "Ta del av erbjudandet",
+                ctaHref: "erbjudande.html"
             },
             21: {
                 title: "Lucka 21",
                 lead: "Midvinterblot med en egen landningsyta.",
                 body: "Har finns plats for copy, villkor, produktbild eller andra komponenter om du vill bygga ut varje tredje lucka mer.",
                 offer: "Midvinterblot med landningssida och erbjudande.",
-                ctaLabel: "Visa dagens sida",
-                ctaHref: "#"
+                ctaLabel: "Ta del av erbjudandet",
+                ctaHref: "erbjudande.html"
             },
             24: {
                 title: "Lucka 24",
                 lead: "God jul med en stor finalsida bakom den sista luckan.",
                 body: "Den sista luckan kan med fordel bli lite storre och mer kampanjdriven, med till exempel ett formulaar eller en mer exklusiv CTA.",
                 offer: "God jul och kalenderns stora finalerbjudande.",
-                ctaLabel: "Oppna finalen",
-                ctaHref: "#"
+                ctaLabel: "Ta del av erbjudandet",
+                ctaHref: "erbjudande.html"
             }
         };
 
@@ -288,7 +291,7 @@
             body: "Den har kampanjsidan ar nu aktiverad for alla luckor i kalendern, med samma tydliga upplagg och plats for erbjudande, CTA och dagsunik copy.",
             offer: `${label} presenteras som dagens kampanj eller aktivitet.`,
             ctaLabel: "Ta del av erbjudandet",
-            ctaHref: "#"
+            ctaHref: "erbjudande.html"
         };
 
         document.title = `${content.title} | Adventserbjudande`;
@@ -300,7 +303,7 @@
 
         const cta = document.getElementById("cta-link");
         cta.textContent = content.ctaLabel;
-        cta.href = content.ctaHref;
+        cta.href = `${content.ctaHref}?day=${Number.isFinite(day) && day ? day : ""}`;
     </script>
 </body>
 </html>
