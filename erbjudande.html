@@ -15,7 +15,11 @@
             --display-font: "Circular Pro", "Aptos", "Segoe UI", Arial, sans-serif;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             min-height: 100vh;
@@ -23,12 +27,18 @@
             color: white;
             background:
                 linear-gradient(rgba(80, 0, 8, 0.3), rgba(80, 0, 8, 0.3)),
-                url("background.png") center center / cover no-repeat fixed;
+                url("julkalender_unpacked/background.png") center center / cover no-repeat fixed;
         }
 
-        .page { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+        .page {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
 
         .panel {
+            position: relative;
             width: min(760px, 100%);
             display: grid;
             gap: 22px;
@@ -36,6 +46,23 @@
             border-radius: 30px;
             background: rgba(0, 87, 69, 0.97);
             box-shadow: var(--page-shadow);
+            overflow: hidden;
+            animation: panel-float 6s ease-in-out infinite;
+        }
+
+        .panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, transparent 0 38%, rgba(248, 241, 232, 0.12) 50%, transparent 62%);
+            transform: translateX(-72%);
+            animation: panel-sheen 6.4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .panel > * {
+            position: relative;
+            z-index: 1;
         }
 
         .brand {
@@ -102,7 +129,10 @@
             border: 1px solid rgba(248, 241, 232, 0.16);
         }
 
-        .field { display: grid; gap: 8px; }
+        .field {
+            display: grid;
+            gap: 8px;
+        }
 
         label {
             font-size: 0.82rem;
@@ -129,7 +159,12 @@
             border-color: var(--page-lime);
         }
 
-        .cta-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+        }
 
         button,
         .back-link {
@@ -143,10 +178,14 @@
             font-weight: 800;
             text-decoration: none;
             cursor: pointer;
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        button { border: 0; background: var(--page-cream); color: var(--page-green-dark); }
+        button {
+            border: 0;
+            background: var(--page-cream);
+            color: var(--page-green-dark);
+        }
 
         .back-link {
             border: 1px solid rgba(248, 241, 232, 0.36);
@@ -155,7 +194,17 @@
         }
 
         button:hover,
-        .back-link:hover { transform: translateY(-1px); }
+        .back-link:hover {
+            transform: translateY(-5px) scale(1.025);
+            box-shadow:
+                0 18px 32px rgba(0, 0, 0, 0.26),
+                0 0 24px rgba(217, 255, 99, 0.18);
+        }
+
+        .back-link:hover {
+            border-color: rgba(217, 255, 99, 0.38);
+            background: rgba(248, 241, 232, 0.14);
+        }
 
         .success {
             display: none;
@@ -168,11 +217,44 @@
             text-align: center;
         }
 
-        .success.is-visible { display: block; }
+        .success.is-visible {
+            display: block;
+        }
+
+        @keyframes panel-float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes panel-sheen {
+            0%, 44% {
+                transform: translateX(-72%);
+            }
+            60%, 100% {
+                transform: translateX(72%);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .panel,
+            .panel::before {
+                animation: none;
+            }
+        }
 
         @media (max-width: 720px) {
-            .page { padding: 16px; }
-            .panel { padding: 22px 18px; border-radius: 24px; }
+            .page {
+                padding: 16px;
+            }
+
+            .panel {
+                padding: 22px 18px;
+                border-radius: 24px;
+            }
         }
     </style>
 </head>

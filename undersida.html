@@ -8,9 +8,11 @@
         :root {
             --page-green: #005745;
             --page-green-dark: #00392d;
+            --page-green-soft: #0b735c;
+            --page-lime: #d9ff63;
             --page-cream: #f8f1e8;
             --page-red: #bb1e2d;
-            --page-shadow: 0 32px 80px rgba(0, 0, 0, 0.28);
+            --page-shadow: 0 34px 90px rgba(0, 0, 0, 0.3);
             --body-font: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
             --display-font: "Circular Pro", "Aptos", "Segoe UI", Arial, sans-serif;
         }
@@ -27,78 +29,291 @@
             color: white;
             background:
                 linear-gradient(rgba(80, 0, 8, 0.28), rgba(80, 0, 8, 0.28)),
-                url("background.png") center center / cover no-repeat fixed;
+                url("julkalender_unpacked/background.png") center center / cover no-repeat fixed;
         }
 
         .page {
             min-height: 100vh;
             display: grid;
             place-items: center;
-            padding: 24px;
+            padding: 28px;
+            background:
+                linear-gradient(135deg, rgba(0, 87, 69, 0.18), transparent 36%),
+                linear-gradient(315deg, rgba(217, 255, 99, 0.14), transparent 34%);
         }
 
-        .panel {
-            width: min(720px, 100%);
+        .campaign-shell {
+            position: relative;
+            width: min(1120px, 100%);
             display: grid;
-            gap: 22px;
-            padding: 28px;
+            grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.78fr);
+            gap: 26px;
+            align-items: stretch;
+            padding: clamp(22px, 4vw, 36px);
+            border: 1px solid rgba(248, 241, 232, 0.18);
             border-radius: 30px;
-            background: rgba(0, 87, 69, 0.96);
+            background:
+                radial-gradient(circle at 76% 24%, rgba(217, 255, 99, 0.16), transparent 28%),
+                linear-gradient(90deg, rgba(0, 57, 45, 0.9) 0%, rgba(0, 87, 69, 0.72) 42%, rgba(86, 0, 10, 0.42) 100%),
+                linear-gradient(180deg, rgba(70, 0, 8, 0.34), rgba(0, 57, 45, 0.48)),
+                url("julkalender_unpacked/background.png") center center / cover no-repeat;
             box-shadow: var(--page-shadow);
+            overflow: hidden;
+        }
+
+        .campaign-shell::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(115deg, transparent 0 38%, rgba(248, 241, 232, 0.13) 48%, transparent 60%),
+                linear-gradient(180deg, rgba(0, 57, 45, 0.18), rgba(67, 0, 8, 0.1)),
+                repeating-linear-gradient(90deg, rgba(248, 241, 232, 0.035) 0 1px, transparent 1px 84px);
+            opacity: 0.72;
+            pointer-events: none;
+        }
+
+        .campaign-copy,
+        .floating-block {
+            position: relative;
+            z-index: 1;
+        }
+
+        .campaign-copy {
+            display: grid;
+            align-content: center;
+            gap: 20px;
+            min-width: 0;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            justify-content: center;
-            min-height: 74px;
-            margin-bottom: 2px;
+            min-height: 58px;
         }
 
         .brand img {
-            width: min(260px, 76%);
+            width: min(230px, 72%);
             height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.18));
+            filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.2));
         }
 
         .eyebrow {
             font-size: 0.82rem;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            text-align: center;
-            color: rgba(248, 241, 232, 0.84);
+            color: rgba(248, 241, 232, 0.78);
         }
 
         h1 {
+            max-width: 690px;
             font-family: var(--display-font);
-            font-size: clamp(2rem, 5vw, 3.4rem);
-            line-height: 0.95;
-            letter-spacing: -0.04em;
-            text-align: center;
+            font-size: clamp(2.35rem, 6vw, 5rem);
+            line-height: 0.92;
             color: var(--page-cream);
         }
 
         .lead {
-            font-size: clamp(1rem, 2.4vw, 1.45rem);
-            line-height: 1.45;
-            text-align: center;
+            max-width: 640px;
+            font-size: clamp(1.04rem, 2vw, 1.34rem);
+            line-height: 1.5;
             color: white;
         }
 
         .body-copy {
+            max-width: 620px;
             font-size: 1rem;
             line-height: 1.65;
-            text-align: center;
-            color: rgba(248, 241, 232, 0.9);
+            color: rgba(248, 241, 232, 0.86);
+        }
+
+        .campaign-facts {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 2px;
+        }
+
+        .fact {
+            min-height: 92px;
+            padding: 15px;
+            border: 1px solid rgba(248, 241, 232, 0.16);
+            border-radius: 18px;
+            background: rgba(248, 241, 232, 0.08);
+            box-shadow: inset 0 1px 0 rgba(248, 241, 232, 0.12);
+        }
+
+        .fact strong {
+            display: block;
+            margin-bottom: 6px;
+            font-family: var(--display-font);
+            font-size: 1.45rem;
+            line-height: 1;
+            color: var(--page-lime);
+        }
+
+        .fact span {
+            font-size: 0.84rem;
+            line-height: 1.35;
+            color: rgba(248, 241, 232, 0.78);
+        }
+
+        .floating-block {
+            align-self: center;
+            display: grid;
+            gap: 18px;
+            padding: 22px;
+            border: 1px solid rgba(248, 241, 232, 0.26);
+            border-radius: 26px;
+            background:
+                linear-gradient(180deg, rgba(248, 241, 232, 0.2), rgba(248, 241, 232, 0.1)),
+                rgba(0, 57, 45, 0.62);
+            backdrop-filter: blur(10px);
+            box-shadow:
+                inset 0 1px 0 rgba(248, 241, 232, 0.25),
+                0 28px 56px rgba(0, 0, 0, 0.26);
+            animation: float-panel 5.8s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        .floating-block::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+            transform: translateX(-72%);
+            animation: form-sheen 6.2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .floating-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .floating-title p {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(248, 241, 232, 0.72);
+        }
+
+        .floating-title strong {
+            display: block;
+            margin-top: 5px;
+            font-family: var(--display-font);
+            font-size: 1.45rem;
+            color: var(--page-cream);
+        }
+
+        .status-pill {
+            flex: 0 0 auto;
+            padding: 8px 11px;
+            border-radius: 999px;
+            background: var(--page-lime);
+            color: var(--page-green-dark);
+            font-size: 0.78rem;
+            font-weight: 900;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+        }
+
+        .signup-fields {
+            display: grid;
+            gap: 12px;
+        }
+
+        .field {
+            display: grid;
+            gap: 7px;
+        }
+
+        label {
+            font-size: 0.76rem;
+            font-weight: 850;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(248, 241, 232, 0.78);
+        }
+
+        input {
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 14px;
+            border: 1px solid rgba(248, 241, 232, 0.28);
+            border-radius: 15px;
+            background: rgba(248, 241, 232, 0.96);
+            color: var(--page-green-dark);
+            font: inherit;
+            font-size: 0.98rem;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--page-lime);
+            transform: translateY(-2px);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.72),
+                0 0 0 4px rgba(217, 255, 99, 0.26);
+        }
+
+        .offer-card {
+            display: grid;
+            gap: 8px;
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(0, 57, 45, 0.45);
+            border: 1px solid rgba(248, 241, 232, 0.14);
+        }
+
+        .offer-card p:first-child {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(248, 241, 232, 0.68);
+        }
+
+        .offer-card p:last-child {
+            font-size: 1rem;
+            line-height: 1.45;
+            color: var(--page-cream);
+        }
+
+        .campaign-note {
+            display: grid;
+            gap: 8px;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: rgba(248, 241, 232, 0.82);
+        }
+
+        .campaign-note span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .campaign-note span::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            flex: 0 0 auto;
+            border-radius: 999px;
+            background: var(--page-lime);
+            box-shadow: 0 0 14px rgba(217, 255, 99, 0.52);
         }
 
         .cta-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 14px;
-            justify-content: center;
+            gap: 12px;
         }
 
         .cta,
@@ -106,17 +321,18 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-height: 48px;
-            padding: 12px 22px;
+            min-height: 50px;
+            padding: 12px 20px;
             border-radius: 999px;
             text-decoration: none;
-            font-weight: 700;
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            font-weight: 850;
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
         .cta {
             background: var(--page-cream);
             color: var(--page-green-dark);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
         }
 
         .back-link {
@@ -127,83 +343,145 @@
 
         .cta:hover,
         .back-link:hover {
-            transform: translateY(-1px);
+            transform: translateY(-5px) scale(1.025);
+            box-shadow:
+                0 18px 32px rgba(0, 0, 0, 0.28),
+                0 0 24px rgba(217, 255, 99, 0.18);
         }
 
-        .offer-card {
-            padding: 18px;
-            border-radius: 22px;
-            background: rgba(248, 241, 232, 0.08);
-            border: 1px solid rgba(248, 241, 232, 0.14);
-            text-align: center;
+        .back-link:hover {
+            border-color: rgba(217, 255, 99, 0.38);
+            background: rgba(248, 241, 232, 0.14);
         }
 
-        .offer-card p:first-child {
-            margin-bottom: 8px;
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(248, 241, 232, 0.72);
+        @keyframes float-panel {
+            0%, 100% {
+                transform: translateY(0) rotate(-0.3deg);
+            }
+            50% {
+                transform: translateY(-12px) rotate(0.4deg);
+            }
         }
 
-        .offer-card p:last-child {
-            font-size: 1.1rem;
-            line-height: 1.5;
-            color: var(--page-cream);
+        @keyframes form-sheen {
+            0%, 44% {
+                transform: translateX(-72%);
+            }
+            60%, 100% {
+                transform: translateX(72%);
+            }
         }
 
-        @media (max-width: 720px) {
+        @media (max-width: 900px) {
             .page {
                 padding: 16px;
             }
 
-            .panel {
+            .campaign-shell {
+                grid-template-columns: 1fr;
                 padding: 22px 18px;
                 border-radius: 24px;
+            }
+
+            .campaign-facts {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-block {
+                animation: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .floating-block,
+            .floating-block::before {
+                animation: none;
             }
         }
     </style>
 </head>
 <body>
     <main class="page">
-        <article class="panel">
-            <div class="brand">
-                <img src="Clearon_Logo_White.png" alt="ClearOn">
-            </div>
-            <p class="eyebrow" id="eyebrow">Adventserbjudande</p>
-            <h1 id="title">Lucka</h1>
-            <p class="lead" id="lead">Ett erbjudande väntar bakom dagens lucka.</p>
-            <p class="body-copy" id="body-copy">Vi har byggt den här sidan i samma tydliga kampanjupplägg som referensen du skickade, men anpassat till adventskalendern.</p>
-            <p class="body-copy">Erbjudandet g&auml;ller de f&ouml;rsta 1000 som skriver upp sig.</p>
-            <section class="offer-card">
-                <p>Bakom luckan</p>
-                <p id="offer-copy">Dagens innehåll</p>
+        <article class="campaign-shell">
+            <section class="campaign-copy">
+                <div class="brand">
+                    <img src="Clearon_Logo_White.png" alt="ClearOn">
+                </div>
+                <p class="eyebrow" id="eyebrow">Adventserbjudande</p>
+                <h1 id="title">Lucka</h1>
+                <p class="lead" id="lead">Ett erbjudande v&auml;ntar bakom dagens lucka.</p>
+                <p class="body-copy" id="body-copy">Den h&auml;r kampanjytan &auml;r byggd f&ouml;r att k&auml;nnas mer levande: tydlig information, formul&auml;rf&auml;lt och en flytande anm&auml;lningsyta i samma vy.</p>
+                <div class="campaign-facts" aria-label="Kampanjinformation">
+                    <article class="fact">
+                        <strong>1000</strong>
+                        <span>Kuponger i dagens lucka</span>
+                    </article>
+                    <article class="fact">
+                        <strong>24h</strong>
+                        <span>luckan ligger i fokus under dagen</span>
+                    </article>
+                    <article class="fact">
+                        <strong>SMS</strong>
+                        <span>Du f&aring;r kupongen via SMS och kan enkelt l&auml;gga in i din mobila pl&aring;nbok</span>
+                    </article>
+                </div>
             </section>
-            <div class="cta-row">
-                <a class="cta" href="#" id="cta-link">Ta del av erbjudandet</a>
-                <a class="back-link" href="index.html">Tillbaka till kalendern</a>
-            </div>
+
+            <aside class="floating-block" aria-label="Anmalan och erbjudande">
+                <div class="floating-title">
+                    <div>
+                        <p>Bakom luckan</p>
+                        <strong id="offer-heading">Dagens inneh&aring;ll</strong>
+                    </div>
+                    <span class="status-pill">Live</span>
+                </div>
+                <form class="signup-fields" id="signup-preview">
+                    <div class="field">
+                        <label for="name">Namn</label>
+                        <input id="name" name="name" type="text" autocomplete="name" placeholder="Ditt namn">
+                    </div>
+                    <div class="field">
+                        <label for="phone">Telefonnummer</label>
+                        <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="070-123 45 67">
+                    </div>
+                    <div class="field">
+                        <label for="email">E-post</label>
+                        <input id="email" name="email" type="email" autocomplete="email" placeholder="namn@example.se">
+                    </div>
+                </form>
+                <section class="offer-card">
+                    <p>Dagens erbjudande</p>
+                    <p id="offer-copy">Dagens inneh&aring;ll</p>
+                </section>
+                <div class="campaign-note">
+                    <span>Erbjudandet g&auml;ller de f&ouml;rsta 1000 som skriver upp sig.</span>
+                    <span>Genom att l&auml;mna ditt namn och telefonnummer samtycker du till Clearons och Coca-Colas anv&auml;ndarvillkor.</span>
+                </div>
+                <div class="cta-row">
+                    <a class="cta" href="#" id="cta-link">Ta del av erbjudandet</a>
+                    <a class="back-link" href="index.html">Tillbaka till kalendern</a>
+                </div>
+            </aside>
         </article>
     </main>
 
     <script>
         const labels = {
             1: "Pepparkakor",
-            2: "Glogg",
+            2: "Gl\u00f6gg",
             3: "Julmusik",
             4: "Adventsljus",
             5: "Julklappsrim",
             6: "Luciabulle",
             7: "Julgranskulor",
-            8: "Snoflingor",
+            8: "Sn\u00f6flingor",
             9: "Tomteluva",
             10: "Julskinka",
-            11: "Stjarna",
+            11: "Stj\u00e4rna",
             12: "Paketinslagning",
             13: "Lucia",
             14: "Julmarknad",
-            15: "Korsang",
+            15: "K\u00f6rs\u00e5ng",
             16: "Vantar",
             17: "Chokladkalender",
             18: "Julfilm",
@@ -211,23 +489,23 @@
             20: "Juleljus",
             21: "Midvinterblot",
             22: "Julbord",
-            23: "Dan fore dopparedan",
+            23: "Dan f\u00f6re dopparedan",
             24: "God jul"
         };
 
         const offers = {
             3: {
                 title: "Lucka 3",
-                lead: "Julmusik som kickstartar decemberstamningen.",
-                body: "En kampanjsida for dagens lucka med samma kompakta panel, tydliga CTA och centrerade innehall som i referenssidan.",
-                offer: "Oppna spellistan och ta del av dagens juliga innehall.",
+                lead: "Julmusik som kickstartar decemberst\u00e4mningen.",
+                body: "En kampanjsida f\u00f6r dagens lucka med formul\u00e4r, tydlig CTA och mer r\u00f6relse i blocket.",
+                offer: "\u00d6ppna spellistan och ta del av dagens juliga inneh\u00e5ll.",
                 ctaLabel: "Ta del av erbjudandet",
                 ctaHref: "erbjudande.html"
             },
             6: {
                 title: "Lucka 6",
                 lead: "Luciabulle och ett varmt decembererbjudande.",
-                body: "Har kan vi lagga valfri kampanjtext, kod, formulartjanst eller erbjudande beroende pa aktivitet for dagen.",
+                body: "H\u00e4r kan vi l\u00e4gga valfri kampanjtext, kod, formul\u00e4rtj\u00e4nst eller erbjudande beroende p\u00e5 dagens aktivitet.",
                 offer: "Ta del av dagens erbjudande kopplat till luciabullen.",
                 ctaLabel: "Ta del av erbjudandet",
                 ctaHref: "erbjudande.html"
@@ -235,39 +513,39 @@
             9: {
                 title: "Lucka 9",
                 lead: "Tomteluva med en egen kampanjsida bakom luckan.",
-                body: "Sidan ar byggd sa att vi enkelt kan byta rubrik, text och lankanrop per datum utan att gora om layouten.",
-                offer: "Tomteluva med tillhorande erbjudande eller aktivitet.",
+                body: "Sidan \u00e4r byggd s\u00e5 att rubrik, text och l\u00e4nkanrop enkelt kan bytas per datum utan att layouten tappar sin k\u00e4nsla.",
+                offer: "Tomteluva med tillh\u00f6rande erbjudande eller aktivitet.",
                 ctaLabel: "Ta del av erbjudandet",
                 ctaHref: "erbjudande.html"
             },
             12: {
                 title: "Lucka 12",
                 lead: "Paketinslagning med tydlig call to action.",
-                body: "Formatet funkar bra for kuponger, registreringar, smakprov, tavlingar eller annan dagsunik kommunikation.",
-                offer: "Paketinslagning och dagens utvalda innehall.",
+                body: "Formatet fungerar f\u00f6r kuponger, registreringar, smakprov, t\u00e4vlingar eller annan dagsunik kommunikation.",
+                offer: "Paketinslagning och dagens utvalda inneh\u00e5ll.",
                 ctaLabel: "Ta del av erbjudandet",
                 ctaHref: "erbjudande.html"
             },
             15: {
                 title: "Lucka 15",
-                lead: "Korsang med kampanjpanel i referensens stil.",
-                body: "Vi har hallit strukturen ren och fokuserad: logotyp, rubrik, beskrivning, erbjudandeblock och handlingsknapp.",
-                offer: "Korsang med lank vidare till aktivitet eller erbjudande.",
+                lead: "K\u00f6rs\u00e5ng med kampanjpanel i referensens stil.",
+                body: "Dagens lucka inneh\u00e5ller 1000 samplingskuponger f\u00f6r Coca-Cola Morot. Skriv in ditt namn f\u00f6r att f\u00e5 ditt smakprov.",
+                offer: "K\u00f6rs\u00e5ng med l\u00e4nk vidare till aktivitet eller erbjudande.",
                 ctaLabel: "Ta del av erbjudandet",
                 ctaHref: "erbjudande.html"
             },
             18: {
                 title: "Lucka 18",
                 lead: "Julfilm med en separat destinationssida bakom luckan.",
-                body: "Det gar enkelt att ersatta knappen med ett formulaar eller en extern lank om du vill efter nasta iteration.",
-                offer: "Julfilm och en tydlig CTA for dagens innehall.",
+                body: "Knappen kan ers\u00e4ttas med extern l\u00e4nk, formul\u00e4r eller kampanjkod n\u00e4r erbjudandet ska kopplas p\u00e5 riktigt.",
+                offer: "Julfilm och en tydlig CTA f\u00f6r dagens inneh\u00e5ll.",
                 ctaLabel: "Ta del av erbjudandet",
                 ctaHref: "erbjudande.html"
             },
             21: {
                 title: "Lucka 21",
                 lead: "Midvinterblot med en egen landningsyta.",
-                body: "Har finns plats for copy, villkor, produktbild eller andra komponenter om du vill bygga ut varje tredje lucka mer.",
+                body: "H\u00e4r finns plats f\u00f6r copy, villkor, produktbild eller mer exklusivt finalinneh\u00e5ll.",
                 offer: "Midvinterblot med landningssida och erbjudande.",
                 ctaLabel: "Ta del av erbjudandet",
                 ctaHref: "erbjudande.html"
@@ -275,7 +553,7 @@
             24: {
                 title: "Lucka 24",
                 lead: "God jul med en stor finalsida bakom den sista luckan.",
-                body: "Den sista luckan kan med fordel bli lite storre och mer kampanjdriven, med till exempel ett formulaar eller en mer exklusiv CTA.",
+                body: "Den sista luckan kan med f\u00f6rdel bli mer kampanjdriven, med till exempel ett formul\u00e4r, villkor eller en mer exklusiv CTA.",
                 offer: "God jul och kalenderns stora finalerbjudande.",
                 ctaLabel: "Ta del av erbjudandet",
                 ctaHref: "erbjudande.html"
@@ -284,11 +562,11 @@
 
         const params = new URLSearchParams(window.location.search);
         const day = Number(params.get("day"));
-        const label = labels[day] || "Dagens innehall";
+        const label = labels[day] || "Dagens inneh\u00e5ll";
         const content = offers[day] || {
             title: `Lucka ${Number.isFinite(day) && day ? day : ""}`.trim(),
-            lead: `${label} ar dagens tema bakom luckan.`,
-            body: "Den har kampanjsidan ar nu aktiverad for alla luckor i kalendern, med samma tydliga upplagg och plats for erbjudande, CTA och dagsunik copy.",
+            lead: `${label} \u00e4r dagens tema bakom luckan.`,
+            body: "Den h\u00e4r kampanjsidan \u00e4r aktiverad f\u00f6r alla luckor i kalendern, med plats f\u00f6r erbjudande, CTA och dagsunik copy.",
             offer: `${label} presenteras som dagens kampanj eller aktivitet.`,
             ctaLabel: "Ta del av erbjudandet",
             ctaHref: "erbjudande.html"
@@ -299,11 +577,16 @@
         document.getElementById("title").textContent = content.title;
         document.getElementById("lead").textContent = content.lead;
         document.getElementById("body-copy").textContent = content.body;
+        document.getElementById("offer-heading").textContent = label;
         document.getElementById("offer-copy").textContent = content.offer;
 
         const cta = document.getElementById("cta-link");
         cta.textContent = content.ctaLabel;
         cta.href = `${content.ctaHref}?day=${Number.isFinite(day) && day ? day : ""}`;
+
+        document.getElementById("signup-preview").addEventListener("submit", (event) => {
+            event.preventDefault();
+        });
     </script>
 </body>
 </html>
